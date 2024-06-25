@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  php-fpm:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    container_name: php_fpm_app
+    expose:
+      - "9000"
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx_proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - php-fpm
+
